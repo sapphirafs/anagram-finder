@@ -71,27 +71,40 @@ anagramFinder(fileName)
 function group_anagrams(fileName) {
   //seperate the file extension name (.txt)
   let withoutExtension = fileName.split(".").slice(0, -1).join("");
-  //console.log(typeof withoutExtension): string
+  /*console.log(withoutExtension)
+  apple_car_cider_tar_itch_rat_cried_helicopter_arc
+  console.log(typeof withoutExtension): string*/
+
   //then seperate the words without the underscores and make the string an object
   let withoutUnderscore = withoutExtension.split("_");
+  /*console.log( "test: " + withoutUnderscore);
+  console.log(typeof withoutUnderscore)
+  test: apple,car,cider,tar,itch,rat,cried,helicopter,arc 
+  object*/
 
+  /*the join method converts from an array to string
+  the split method converts from a string to an array*/
   let sortedArr = withoutUnderscore.map((item) =>
     item.split("").sort().join("")
   );
   console.log(sortedArr);
   //[ 'aelpp', 'acr', 'cdeir', 'art', 'chit', 'art', 'cdeir', 'ceehiloprt', 'acr' ]
-  //console.log(typeof sortedArr) : object
+  //console.log(typeof sortedArr) : object 
 
-  //store the sortedArr values into the Set object,
+  //store the sortedArr values into the Set object, 
+  //This transforms the array into a set. A Set is similar to an array,but you can’t have duplicate values
   let setArr = new Set(sortedArr);
   //console.log(typeof setArr): object
+  //console.log('Test: ' + setArr) -> Test: [object Set]
+  //console.log('Test: ' + [...setArr]) -> Test: aelpp,acr,cdeir,art,chit,ceehiloprt
 
-  //create an obj for the reduced index to be pushed into
+  //create an obj for the reduced index to be pushed into (for comparison in order to match the anagram to it's pair)
   let reducedObj = {};
 
   //iterate over setArr with setItem being the index
   for (let setItem of setArr) {
-    //create a var that contains a reduced immutable version of the sorted array
+    //create a var that contains a reduced immutable (wont change the original) version of the sorted array (not the set).
+    //this contains the reduced index that will be pushed into the reducedObj
     let indexArr = sortedArr.reduce((total, current, index) => {
       // if index === current value in array
       if (setItem === current) {
@@ -141,5 +154,7 @@ return resultArr;
 console.log(
 group_anagrams("apple_car_cider_tar_itch_rat_cried_helicopter_arc.txt")
 );
+
+
 
 
